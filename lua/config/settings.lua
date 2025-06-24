@@ -15,7 +15,7 @@ opt.wrap = false
 opt.termguicolors = true
 
 -- Colorcolumn
-opt.colorcolumn = '80'
+opt.colorcolumn = '100'
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true

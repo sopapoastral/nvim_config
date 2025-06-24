@@ -3,7 +3,7 @@
 -----------------------------------------
 
 require('lazy').setup({
-  require 'kickstart.plugins.indent_line',
+  -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.debug',
   require 'custom.plugins.autoformat',
   require 'custom.plugins.autopairs',
