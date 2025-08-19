@@ -73,5 +73,9 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Spellcheck langs
-vim.opt.spelllang='es_es,en_us'
-vim.opt.spell=false
+vim.opt.spelllang = 'es_es,en_us'
+vim.opt.spell = false
+
+-- Behavior settings
+vim.opt.backspace = 'indent,eol,start'
+vim.opt.iskeyword:append '-'

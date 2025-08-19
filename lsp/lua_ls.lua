@@ -17,6 +17,9 @@ return {
       completion = {
         callSnipet = 'Replace',
       },
+      diagnostics = {
+        globals = { 'vim' },
+      },
     },
   },
 }

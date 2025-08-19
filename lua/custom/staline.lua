@@ -7,9 +7,18 @@ return {
   config = function()
     require('staline').setup {
       sections = {
-        left = { '  ', 'mode', ' ', 'branch', ' ', 'lsp' },
+        left = {
+          '  ',
+          'mode',
+          ' ',
+          'branch', --[[ ' ', 'cwd', ]]
+          ' ',
+          'lsp_name',
+          ' ',
+          'lsp',
+        },
         mid = { 'cool_symbol' },
-        right = { 'file_name', 'line_column' },
+        right = { 'cwd', ' ', 'file_name', 'line_column' },
       },
       mode_colors = {
         i = '#f6c177',
@@ -18,8 +27,11 @@ return {
         v = '#ebbcba',
       },
       defaults = {
+        bg = '#191724',
+        fg = '#e0def4',
         true_colors = true,
-        line_column = ' [%l/%L] :%c  ',
+        line_column = '[%l/%L]:%c',
+
         branch_symbol = ' ',
         mod_symbol = '  ',
       },

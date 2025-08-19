@@ -67,8 +67,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.enable 'lua_ls'
 vim.lsp.enable 'clangd'
 vim.lsp.enable 'texlab'
-vim.lsp.enable 'ols'
 vim.lsp.enable 'pyright'
 vim.lsp.enable 'ada_ls'
 vim.lsp.enable 'asm-lsp'
+vim.lsp.enable 'bashls'
+vim.lsp.enable 'gopls'
 vim.diagnostic.config { virtual_text = true }

@@ -1,12 +1,5 @@
 ---@diagnostic disable: missing-fields
-
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
+---@diagnostic disable: deprecated
 
 return {
   'mfussenegger/nvim-dap',
@@ -17,16 +10,17 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
     'leoluz/nvim-dap-go',
   },
+
   keys = function(_, keys)
     local dap = require 'dap'
     local dapui = require 'dapui'
 
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-      { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
-      { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
-      { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
+      { '<leader>cc', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<leader>si', dap.step_into, desc = 'Debug: Step Into' },
+      { '<leader>so', dap.step_over, desc = 'Debug: Step Over' },
+      { '<leader>su', dap.step_out, desc = 'Debug: Step Out' },
       { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
       {
         '<leader>B',
@@ -36,7 +30,7 @@ return {
         desc = 'Debug: Set Breakpoint',
       },
       -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<leader>de', dapui.toggle, desc = 'Debug: See last session result.' },
       unpack(keys),
     }
   end,
@@ -55,7 +49,6 @@ return {
       handlers = {},
 
       ensure_installed = {
-        'delve',
         'cpptools',
       },
     }
@@ -83,32 +76,11 @@ return {
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-    -- Install golang specific config
-    require('dap-go').setup {
-      delve = {
-        -- On Windows delve must be run attached or it crashes.
-        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
-      },
+    dap.adapters.codelldb = {
+      type = 'executable',
+      command = '/home/sopapo/.local/share/nvim/mason/packages/codelldb/codelldb',
     }
 
-    dap.adapters.codelldb = {
-      type = 'server',
-      port = '${port}',
-      executable = {
-        -- command = '/home/sopapo/.local/share/nvim/mason/packages/codelldb/codelldb',
-        command = 'codelldb',
-        args = {
-          '--port',
-          '${port}',
-        },
-      },
-    }
-    dap.adapters.cppdbg = {
-      id = 'cppdbg',
-      type = 'executable',
-      command = '/home/sopapo/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
-    }
     dap.configurations.cpp = {
       {
         name = 'Launch file',
@@ -116,6 +88,10 @@ return {
         request = 'launch',
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        args = function()
+          local args_str = vim.fn.input 'Args: '
+          return vim.split(args_str, ' +')
         end,
         cwd = '${workspaceFolder}',
         stopAtEntry = false,
