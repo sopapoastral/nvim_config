@@ -87,3 +87,30 @@ vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 -- Better indenting in visual mode
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
+
+-- Poner tilde
+vim.keymap.set('n', '<leader>tt', function()
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_get_current_line()
+
+  local char_idx = vim.str_utfindex(line, col)
+  local char = vim.fn.strcharpart(line, char_idx, 1)
+  if char == '' then
+    return
+  end
+
+  local acute_map = {
+    a = 'á', e = 'é', i = 'í', o = 'ó', u = 'ú',
+    A = 'Á', E = 'É', I = 'Í', O = 'Ó', U = 'Ú',
+  }
+
+  local replacement = acute_map[char]
+  if not replacement then
+    return
+  end
+
+  local before = vim.fn.strcharpart(line, 0, char_idx)
+  local after = vim.fn.strcharpart(line, char_idx + 1)
+
+  vim.api.nvim_set_current_line(before .. replacement .. after)
+end, { desc = 'Replace with precomposed acute character' })

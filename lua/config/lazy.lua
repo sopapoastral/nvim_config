@@ -14,6 +14,7 @@ require('lazy').setup({
   require 'custom.cscope',
   require 'custom.gitsigns',
   require 'custom.harpoon',
+  require 'custom.hexed',
   require 'custom.iron',
   require 'custom.jupytext',
   -- require 'custom.lsp-config',

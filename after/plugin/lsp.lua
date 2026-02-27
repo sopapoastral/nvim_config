@@ -72,4 +72,6 @@ vim.lsp.enable 'ada_ls'
 vim.lsp.enable 'asm-lsp'
 vim.lsp.enable 'bashls'
 vim.lsp.enable 'gopls'
+vim.lsp.enable 'html-lsp'
+vim.lsp.enable 'ts_ls'
 vim.diagnostic.config { virtual_text = true }

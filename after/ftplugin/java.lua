@@ -44,15 +44,28 @@ local config = {
     java = {
       configuration = {
         runtimes = {
-          name = "JavaSE-21",
-          path = '/home/sopapo/.java/jdk-21/'
-        }
+          {
+            name = 'JavaSE-21',
+            path = '/home/sopapo/.java/jdk-21/',
+          },
+        },
+      },
+      project = {
+        referencedLibraries = {
+          '/home/sopapo/.eclipse/eclipse/plugins/*.jar',
+          '/home/sopapo/.apache-tomcat/lib/*.jar',
+        },
       },
     },
   },
 
   init_options = {
-    bundles = {
+    bundles = {},
+    workspace = {
+      extraJars = {
+        '/home/sopapo/.eclipse/eclipse/plugins/*.jar',
+        '/home/sopapo/.apache-tomcat/lib/*.jar',
+      },
     },
   },
 }
@@ -60,10 +73,10 @@ local config = {
 require('jdtls').start_or_attach(config)
 
 ---@format disable
-vim.keymap.set('n', '<leader>co' , "<Cmd>lua require'jdtls'.organize_imports()<CR>"           , { desc = 'Organize Imports' })
-vim.keymap.set('n', '<leader>crv', "<Cmd>lua require('jdtls').extract_variable()<CR>"         , { desc = 'Extract Variable' })
+vim.keymap.set('n', '<leader>co', "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = 'Organize Imports' })
+vim.keymap.set('n', '<leader>crv', "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = 'Extract Variable' })
 vim.keymap.set('v', '<leader>crv', "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = 'Extract Variable' })
-vim.keymap.set('n', '<leader>crc', "<Cmd>lua require('jdtls').extract_constant()<CR>"         , { desc = 'Extract Constant' })
+vim.keymap.set('n', '<leader>crc', "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = 'Extract Constant' })
 vim.keymap.set('v', '<leader>crc', "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = 'Extract Constant' })
-vim.keymap.set('v', '<leader>crm', "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>"  , { desc = 'Extract Method' })
+vim.keymap.set('v', '<leader>crm', "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = 'Extract Method' })
 ---@format enable
